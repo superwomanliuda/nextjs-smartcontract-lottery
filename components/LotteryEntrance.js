@@ -16,6 +16,7 @@ export default function LotteryEntrance() {
 
     const {
         runContractFunction: enterRaffle,
+        data: enterTxResponse,
         isLoading,
         isFetching,
     } = useWeb3Contract({
@@ -61,11 +62,6 @@ export default function LotteryEntrance() {
         }
     }, [isWeb3Enabled])
 
-    const handleSuccess = async function (tx) {
-        await tx.wait(1)
-        handleNewNotification(tx)
-        updateUI()
-    }
     const handleNewNotification = function () {
         dispatch({
             type: "info",
@@ -75,6 +71,15 @@ export default function LotteryEntrance() {
             icon: "bell",
         })
     }
+    const handleSuccess = async function (tx) {
+        try {
+            await tx.wait(1)
+            updateUIValues()
+            handleNewNotification(tx)
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
     return (
         <div className="p-5">
@@ -83,7 +88,7 @@ export default function LotteryEntrance() {
             {raffleAddress ? (
                 <div>
                     <button
-                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-auto"
+                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded ml-aut"
                         onClick={async function () {
                             await enterRaffle({
                                 onSuccess: handleSuccess,

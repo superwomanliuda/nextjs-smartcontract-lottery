@@ -79,6 +79,7 @@ export default function LotteryEntrance() {
     return (
         <div className="p-5">
             lottery entrance
+            <div>raffle address:{raffleAddress}</div>
             {raffleAddress ? (
                 <div>
                     <button

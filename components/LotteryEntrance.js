@@ -74,7 +74,7 @@ export default function LotteryEntrance() {
     const handleSuccess = async function (tx) {
         try {
             await tx.wait(1)
-            updateUIValues()
+            updateUI()
             handleNewNotification(tx)
         } catch (error) {
             console.log(error)
